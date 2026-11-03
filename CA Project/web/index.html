@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Banking System | C++ & SQLite Core</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts for sleek typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h2>APEX BANK</h2>
+                    <span class="badge-tech">C++ SQLite Core</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-section-title">CORE BANKING</div>
+                <button class="nav-item active" data-tab="dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-tab="accounts">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>All Accounts</span>
+                </button>
+                <button class="nav-item" data-tab="create-account">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+                    <span>Create Account</span>
+                </button>
+
+                <div class="nav-section-title">TRANSACTIONS</div>
+                <button class="nav-item" data-tab="deposit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span>Deposit Funds</span>
+                </button>
+                <button class="nav-item" data-tab="withdraw">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                    <span>Withdraw Funds</span>
+                </button>
+                <button class="nav-item" data-tab="transfer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                    <span>Fund Transfer</span>
+                </button>
+                <button class="nav-item" data-tab="passbook">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>Ledger / Passbook</span>
+                </button>
+
+                <div class="nav-section-title">MANAGEMENT & SECURITY</div>
+                <button class="nav-item" data-tab="freeze">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <span>Freeze / Activate</span>
+                </button>
+                <button class="nav-item" data-tab="kyc">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <span>KYC Verification</span>
+                </button>
+                <button class="nav-item" data-tab="delete-acc">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span>Close / Delete Account</span>
+                </button>
+                <button class="nav-item" data-tab="calculator">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>
+                    <span>Financial Calculators</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <div class="status-info">
+                        <span class="status-title">Core Backend Online</span>
+                        <span class="status-sub">C++ Server &bull; Port 8080</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p class="subtitle" id="page-subtitle">Real-time banking metrics and transactional oversight</p>
+                </div>
+                <div class="topbar-right">
+                    <div class="clock-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span id="live-clock">--:--:--</span>
+                    </div>
+                    <button class="btn btn-secondary btn-icon-text" id="btn-refresh-all">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        <span>Refresh Data</span>
+                    </button>
+                    <button class="btn btn-primary btn-icon-text" onclick="showTab('create-account')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>Open Account</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="tab-container">
+                <!-- 1. DASHBOARD TAB -->
+                <section class="tab-pane active" id="tab-dashboard">
+                    <!-- KPI Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card stat-primary">
+                            <div class="stat-header">
+                                <span class="stat-label">Total Vault Reserve</span>
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="stat-reserve">₹0.00</div>
+                            <div class="stat-footer">
+                                <span class="stat-tag success">&bull; Liquidity Sound</span>
+                                <span class="stat-note">Stored in SQLite Engine</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">Total Customers</span>
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="stat-total-accounts">0</div>
+                            <div class="stat-footer">
+                                <span class="badge badge-active" id="stat-active-accounts">0 Active</span>
+                                <span class="badge badge-frozen" id="stat-frozen-accounts">0 Frozen</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">KYC Compliance</span>
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="stat-kyc-verified">0</div>
+                            <div class="stat-footer">
+                                <span class="badge badge-verified">Verified</span>
+                                <span class="badge badge-pending" id="stat-kyc-pending">0 Pending</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <span class="stat-label">Total Ledger Transactions</span>
+                                <div class="stat-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="stat-total-tx">0</div>
+                            <div class="stat-footer">
+                                <span class="stat-tag info">ACID Compliant</span>
+                                <span class="stat-note">SQLite WAL Mode</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Navigation Cards -->
+                    <div class="quick-actions-bar">
+                        <div class="quick-action-btn" onclick="showTab('deposit')">
+                            <div class="qa-icon deposit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                            </div>
+                            <div class="qa-info">
+                                <strong>Deposit Money</strong>
+                                <span>Credit funds to customer</span>
+                            </div>
+                        </div>
+
+                        <div class="quick-action-btn" onclick="showTab('withdraw')">
+                            <div class="qa-icon withdraw-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                            </div>
+                            <div class="qa-info">
+                                <strong>Withdraw Money</strong>
+                                <span>Debit funds from account</span>
+                            </div>
+                        </div>
+
+                        <div class="quick-action-btn" onclick="showTab('transfer')">
+                            <div class="qa-icon transfer-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                            </div>
+                            <div class="qa-info">
+                                <strong>Transfer Funds</strong>
+                                <span>Atomic intra-bank transfer</span>
+                            </div>
+                        </div>
+
+                        <div class="quick-action-btn" onclick="showTab('freeze')">
+                            <div class="qa-icon freeze-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            </div>
+                            <div class="qa-info">
+                                <strong>Freeze / Activate</strong>
+                                <span>Security locks & status</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Section -->
+                    <div class="dashboard-grid">
+                        <!-- Recent Transactions -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                                    <h3>Recent Transaction Log</h3>
+                                </div>
+                                <button class="btn btn-sm btn-outline" onclick="showTab('passbook')">View All Ledger</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>TX ID</th>
+                                            <th>Account</th>
+                                            <th>Type</th>
+                                            <th>Amount</th>
+                                            <th>Balance After</th>
+                                            <th>Timestamp</th>
+                                            <th>Receipt</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dash-tx-table-body">
+                                        <tr><td colspan="7" class="text-center py-4">Loading ledger...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- System Audit Feed -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                    <h3>Security & Audit Log</h3>
+                                </div>
+                                <span class="badge badge-info">Live Stream</span>
+                            </div>
+                            <div class="audit-list" id="dash-audit-list">
+                                <div class="text-center py-4">Loading audit logs...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. ALL ACCOUNTS DIRECTORY TAB -->
+                <section class="tab-pane" id="tab-accounts">
+                    <div class="card">
+                        <div class="card-header flex-wrap">
+                            <div class="card-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                                <h3>Account Directory</h3>
+                            </div>
+                            <div class="filter-controls">
+                                <div class="search-input-wrapper">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                    <input type="text" id="acc-search-input" placeholder="Search by name, account no, email...">
+                                </div>
+                                <select id="acc-filter-status" class="form-select">
+                                    <option value="ALL">All Statuses</option>
+                                    <option value="ACTIVE">Active Only</option>
+                                    <option value="FROZEN">Frozen Only</option>
+                                    <option value="CLOSED">Closed Only</option>
+                                </select>
+                                <select id="acc-filter-kyc" class="form-select">
+                                    <option value="ALL">All KYC</option>
+                                    <option value="VERIFIED">Verified Only</option>
+                                    <option value="PENDING">Pending Only</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Acc No</th>
+                                        <th>Holder Name</th>
+                                        <th>Type</th>
+                                        <th>Balance</th>
+                                        <th>Status</th>
+                                        <th>KYC</th>
+                                        <th>Phone</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="accounts-table-body">
+                                    <tr><td colspan="8" class="text-center py-4">Loading accounts...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. CREATE ACCOUNT TAB -->
+                <section class="tab-pane" id="tab-create-account">
+                    <div class="form-card-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+                                    <div>
+                                        <h3>Open New Bank Account</h3>
+                                        <p class="card-desc">Complete customer onboarding and initial KYC identity binding</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="form-create-account" class="banking-form">
+                                <div class="form-section-title">1. Personal & Contact Information</div>
+                                <div class="form-grid">
+                                    <div class="form-group col-span-2">
+                                        <label for="create-name">Full Legal Name <span class="required">*</span></label>
+                                        <input type="text" id="create-name" required placeholder="e.g. John Alexander Doe">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-email">Email Address <span class="required">*</span></label>
+                                        <input type="email" id="create-email" required placeholder="john.doe@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-phone">Phone Number <span class="required">*</span></label>
+                                        <input type="text" id="create-phone" required placeholder="+1 (555) 012-3456">
+                                    </div>
+                                </div>
+
+                                <div class="form-section-title">2. Account Configuration & Initial Deposit</div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="create-type">Account Type</label>
+                                        <select id="create-type" class="form-select">
+                                            <option value="Savings">Savings Account (4.5% APY)</option>
+                                            <option value="Current">Current / Business Checking</option>
+                                            <option value="Fixed Deposit">Fixed Deposit (7.2% APY)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-deposit">Initial Deposit Amount (₹ INR)</label>
+                                        <input type="number" id="create-deposit" min="0" step="0.01" value="500.00" placeholder="0.00">
+                                        <small class="helper-text">Credited immediately upon creation into SQLite ledger</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-section-title">3. KYC Document Verification</div>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="create-id-type">Identification Document Type</label>
+                                        <select id="create-id-type" class="form-select">
+                                            <option value="Passport">Passport</option>
+                                            <option value="National ID">National ID / Citizen Card</option>
+                                            <option value="Driving License">Driving License</option>
+                                            <option value="Social Security / Tax ID">SSN / Tax Identification</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-id-number">Document Number / ID <span class="required">*</span></label>
+                                        <input type="text" id="create-id-number" required placeholder="e.g. PASS-8932014">
+                                    </div>
+                                    <div class="form-group col-span-2">
+                                        <label for="create-address">Residential Address</label>
+                                        <input type="text" id="create-address" placeholder="123 Financial Way, Suite 400, New York, NY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="create-kyc-status">Initial KYC Status</label>
+                                        <select id="create-kyc-status" class="form-select">
+                                            <option value="VERIFIED">Verified (Instant Approval)</option>
+                                            <option value="PENDING">Pending Document Review</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-outline">Clear Form</button>
+                                    <button type="submit" class="btn btn-primary btn-lg" id="btn-submit-create">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Create Account in SQLite Database</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. DEPOSIT FUNDS TAB -->
+                <section class="tab-pane" id="tab-deposit">
+                    <div class="form-card-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                    <div>
+                                        <h3>Deposit Funds</h3>
+                                        <p class="card-desc">Credit funds into an existing active account</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="form-deposit" class="banking-form">
+                                <div class="form-grid">
+                                    <div class="form-group col-span-2">
+                                        <label for="deposit-acc-no">Select or Enter Account Number <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="deposit-acc-no" required placeholder="Enter 8-digit Account Number (e.g. 10010001)">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('deposit')">Verify Account</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="deposit-lookup-info"></div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="deposit-amount">Deposit Amount (₹ INR) <span class="required">*</span></label>
+                                        <input type="number" id="deposit-amount" min="1" step="0.01" required placeholder="0.00">
+                                        
+                                        <!-- Quick Amount Chips -->
+                                        <div class="amount-chips">
+                                            <button type="button" class="chip" onclick="setDepositAmount(50)">+₹50</button>
+                                            <button type="button" class="chip" onclick="setDepositAmount(100)">+₹100</button>
+                                            <button type="button" class="chip" onclick="setDepositAmount(500)">+₹500</button>
+                                            <button type="button" class="chip" onclick="setDepositAmount(1000)">+₹1,000</button>
+                                            <button type="button" class="chip" onclick="setDepositAmount(5000)">+₹5,000</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="deposit-remarks">Transaction Remarks / Reference</label>
+                                        <input type="text" id="deposit-remarks" placeholder="e.g. Salary Deposit, Cash at Branch #14">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success btn-lg" id="btn-submit-deposit">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Confirm Deposit</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. WITHDRAW FUNDS TAB -->
+                <section class="tab-pane" id="tab-withdraw">
+                    <div class="form-card-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                                    <div>
+                                        <h3>Withdraw Funds</h3>
+                                        <p class="card-desc">Safely debit money with instant balance and freeze protection</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="form-withdraw" class="banking-form">
+                                <div class="form-grid">
+                                    <div class="form-group col-span-2">
+                                        <label for="withdraw-acc-no">Account Number <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="withdraw-acc-no" required placeholder="Enter Account Number">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('withdraw')">Verify Account</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="withdraw-lookup-info"></div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="withdraw-amount">Withdrawal Amount (₹ INR) <span class="required">*</span></label>
+                                        <input type="number" id="withdraw-amount" min="1" step="0.01" required placeholder="0.00">
+                                        
+                                        <!-- Quick Amount Chips -->
+                                        <div class="amount-chips">
+                                            <button type="button" class="chip" onclick="setWithdrawAmount(50)">₹50</button>
+                                            <button type="button" class="chip" onclick="setWithdrawAmount(100)">₹100</button>
+                                            <button type="button" class="chip" onclick="setWithdrawAmount(200)">₹200</button>
+                                            <button type="button" class="chip" onclick="setWithdrawAmount(500)">₹500</button>
+                                            <button type="button" class="chip" onclick="setWithdrawAmount(1000)">₹1,000</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="withdraw-remarks">Withdrawal Purpose / Remarks</label>
+                                        <input type="text" id="withdraw-remarks" placeholder="e.g. ATM Cash Withdrawal, Utility Payment">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-warning btn-lg" id="btn-submit-withdraw">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Confirm Withdrawal</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. FUND TRANSFER TAB -->
+                <section class="tab-pane" id="tab-transfer">
+                    <div class="form-card-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                                    <div>
+                                        <h3>Intra-Bank Fund Transfer</h3>
+                                        <p class="card-desc">Atomic C++ transaction debiting sender and crediting recipient</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="form-transfer" class="banking-form">
+                                <div class="form-grid">
+                                    <!-- Sender -->
+                                    <div class="form-group">
+                                        <label for="transfer-from-acc">From Account (Sender) <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="transfer-from-acc" required placeholder="Sender Account #">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('transfer-from')">Check</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="transfer-from-info"></div>
+                                    </div>
+
+                                    <!-- Recipient -->
+                                    <div class="form-group">
+                                        <label for="transfer-to-acc">To Account (Beneficiary) <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="transfer-to-acc" required placeholder="Recipient Account #">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('transfer-to')">Check</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="transfer-to-info"></div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="transfer-amount">Transfer Amount (₹ INR) <span class="required">*</span></label>
+                                        <input type="number" id="transfer-amount" min="1" step="0.01" required placeholder="0.00">
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="transfer-remarks">Transfer Note</label>
+                                        <input type="text" id="transfer-remarks" placeholder="e.g. Monthly rent, Project milestone payment">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="btn-submit-transfer">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Execute Transfer Transaction</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. FREEZE / ACTIVATE ACCOUNT TAB -->
+                <section class="tab-pane" id="tab-freeze">
+                    <div class="form-card-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                    <div>
+                                        <h3>Freeze / Activate Account Management</h3>
+                                        <p class="card-desc">Instantly toggle account lock to prevent fraudulent transactions or re-activate verified customers</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="form-freeze" class="banking-form">
+                                <div class="form-grid">
+                                    <div class="form-group col-span-2">
+                                        <label for="freeze-acc-no">Account Number <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="freeze-acc-no" required placeholder="Enter Account Number">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('freeze')">Inspect Status</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="freeze-lookup-info"></div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label>Desired Action</label>
+                                        <div class="radio-pill-group">
+                                            <label class="radio-pill danger">
+                                                <input type="radio" name="freeze-action" value="FROZEN" checked>
+                                                <span>❄️ FREEZE Account (Block Withdrawals & Deposits)</span>
+                                            </label>
+                                            <label class="radio-pill success">
+                                                <input type="radio" name="freeze-action" value="ACTIVE">
+                                                <span>⚡ ACTIVATE / UNFREEZE Account (Restore Access)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="freeze-reason">Administrative Reason / Security Note <span class="required">*</span></label>
+                                        <input type="text" id="freeze-reason" required placeholder="e.g. Suspicious activity reported, Customer request, KYC document verified">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="btn-submit-freeze">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Update Account Status</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. KYC UPDATE TAB -->
+                <section class="tab-pane" id="tab-kyc">
+                    <div class="form-card-container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                                    <div>
+                                        <h3>KYC (Know Your Customer) Compliance Update</h3>
+                                        <p class="card-desc">Verify customer identity documents, update residential address, and adjust compliance status</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="form-kyc" class="banking-form">
+                                <div class="form-grid">
+                                    <div class="form-group col-span-2">
+                                        <label for="kyc-acc-no">Account Number <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="kyc-acc-no" required placeholder="Enter Account Number">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('kyc')">Fetch Existing KYC</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="kyc-lookup-info"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="kyc-new-status">Compliance Status</label>
+                                        <select id="kyc-new-status" class="form-select">
+                                            <option value="VERIFIED">VERIFIED (Full Banking Privileges)</option>
+                                            <option value="PENDING">PENDING (Awaiting Review)</option>
+                                            <option value="REJECTED">REJECTED (Restricted Access)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="kyc-id-type">Identity Proof Document Type</label>
+                                        <select id="kyc-id-type" class="form-select">
+                                            <option value="Passport">Passport</option>
+                                            <option value="National ID">National ID / Citizen Card</option>
+                                            <option value="Driving License">Driving License</option>
+                                            <option value="Tax ID / SSN">Tax ID / SSN</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="kyc-id-number">Document Number <span class="required">*</span></label>
+                                        <input type="text" id="kyc-id-number" required placeholder="e.g. DOC-987654321">
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label for="kyc-address">Updated Residential Address</label>
+                                        <input type="text" id="kyc-address" placeholder="e.g. 742 Evergreen Terrace, Springfield">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="btn-submit-kyc">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        <span>Save KYC Verification</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 9. DELETE / CLOSE ACCOUNT TAB -->
+                <section class="tab-pane" id="tab-delete-acc">
+                    <div class="form-card-container">
+                        <div class="card danger-card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    <div>
+                                        <h3 class="text-danger">Close or Delete Account</h3>
+                                        <p class="card-desc">Safely terminate or permanently purge an account from the banking database</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-warning">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                <div>
+                                    <strong>Banking Compliance Rule:</strong>
+                                    <p>An account CANNOT be closed if it holds a non-zero balance (₹0.00 required). Please withdraw or transfer all remaining funds prior to closure.</p>
+                                </div>
+                            </div>
+
+                            <form id="form-delete" class="banking-form">
+                                <div class="form-grid">
+                                    <div class="form-group col-span-2">
+                                        <label for="delete-acc-no">Account Number <span class="required">*</span></label>
+                                        <div class="input-with-lookup">
+                                            <input type="number" id="delete-acc-no" required placeholder="Enter Account Number to Close">
+                                            <button type="button" class="btn btn-secondary" onclick="lookupAccountForOperation('delete')">Check Balance & Status</button>
+                                        </div>
+                                        <div class="account-lookup-badge" id="delete-lookup-info"></div>
+                                    </div>
+
+                                    <div class="form-group col-span-2">
+                                        <label>Closure Type</label>
+                                        <div class="radio-pill-group">
+                                            <label class="radio-pill">
+                                                <input type="radio" name="delete-mode" value="soft" checked>
+                                                <span>📁 Close & Archive (Standard Banking - Marks 'CLOSED', preserves audit trail)</span>
+                                            </label>
+                                            <label class="radio-pill danger">
+                                                <input type="radio" name="delete-mode" value="hard">
+                                                <span>⚠️ Permanent Purge (Deletes row and transactions completely from SQLite)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-danger btn-lg" id="btn-submit-delete">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                        <span>Confirm Account Closure</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 10. PASSBOOK & TRANSACTION HISTORY TAB -->
+                <section class="tab-pane" id="tab-passbook">
+                    <div class="card">
+                        <div class="card-header flex-wrap">
+                            <div class="card-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                                <div>
+                                    <h3>Bank Passbook & Transaction Ledger</h3>
+                                    <p class="card-desc">Full immutable transaction audit trail across accounts</p>
+                                </div>
+                            </div>
+                            <div class="filter-controls">
+                                <input type="number" id="passbook-acc-filter" placeholder="Filter by Account #" class="form-input-sm">
+                                <button class="btn btn-sm btn-secondary" onclick="loadPassbook()">Filter Ledger</button>
+                                <button class="btn btn-sm btn-outline" onclick="exportPassbookCSV()">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    <span>Export CSV</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tx ID</th>
+                                        <th>Account No</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Balance After</th>
+                                        <th>Target / Ref</th>
+                                        <th>Remarks</th>
+                                        <th>Timestamp</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="passbook-table-body">
+                                    <tr><td colspan="9" class="text-center py-4">Loading ledger...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 11. FINANCIAL CALCULATORS TAB -->
+                <section class="tab-pane" id="tab-calculator">
+                    <div class="grid-2-col">
+                        <!-- Compound Interest / Savings Calculator -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                                    <div>
+                                        <h3>Compound Interest Calculator</h3>
+                                        <p class="card-desc">Estimate returns for Savings & Fixed Deposits</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="banking-form">
+                                <div class="form-group">
+                                    <label>Principal Amount (₹ INR)</label>
+                                    <input type="number" id="calc-principal" value="10000" min="100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Annual Interest Rate (% APY)</label>
+                                    <input type="number" id="calc-rate" value="5.5" step="0.1" min="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Duration (Years)</label>
+                                    <input type="number" id="calc-years" value="3" min="1" max="30">
+                                </div>
+                                <button class="btn btn-primary" onclick="calculateInterest()">Calculate Growth</button>
+
+                                <div class="calc-result-box" id="calc-interest-result">
+                                    <div class="calc-res-item">
+                                        <span>Total Maturity Value:</span>
+                                        <strong id="calc-maturity-val">₹11,742.41</strong>
+                                    </div>
+                                    <div class="calc-res-item">
+                                        <span>Total Interest Earned:</span>
+                                        <strong class="text-success" id="calc-earned-val">₹1,742.41</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Loan EMI Calculator -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="12" x2="18" y2="12"></line></svg>
+                                    <div>
+                                        <h3>Loan EMI Simulator</h3>
+                                        <p class="card-desc">Simulate monthly payment for personal & business loans</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="banking-form">
+                                <div class="form-group">
+                                    <label>Loan Amount (₹ INR)</label>
+                                    <input type="number" id="calc-loan-amount" value="50000" min="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Interest Rate (% Per Annum)</label>
+                                    <input type="number" id="calc-loan-rate" value="8.5" step="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tenure (Months)</label>
+                                    <input type="number" id="calc-loan-months" value="36" min="6" max="360">
+                                </div>
+                                <button class="btn btn-secondary" onclick="calculateLoanEMI()">Calculate Monthly EMI</button>
+
+                                <div class="calc-result-box" id="calc-loan-result">
+                                    <div class="calc-res-item">
+                                        <span>Monthly EMI Payment:</span>
+                                        <strong id="calc-emi-val">₹1,578.43 / mo</strong>
+                                    </div>
+                                    <div class="calc-res-item">
+                                        <span>Total Repayment:</span>
+                                        <strong id="calc-loan-total">₹56,823.48</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: TRANSACTION RECEIPT -->
+    <div class="modal-backdrop" id="receipt-modal">
+        <div class="modal-dialog receipt-dialog">
+            <div class="receipt-paper" id="printable-receipt">
+                <div class="receipt-header">
+                    <div class="receipt-bank-logo">APEX BANK</div>
+                    <div class="receipt-subtitle">Official Electronic Transaction Advice</div>
+                    <div class="receipt-stamp">VERIFIED &bull; SQLITE CORE</div>
+                </div>
+                <div class="receipt-divider"></div>
+                <div class="receipt-rows">
+                    <div class="r-row"><span>Transaction ID:</span><strong id="rec-tx-id">#TX-10928</strong></div>
+                    <div class="r-row"><span>Date & Time:</span><strong id="rec-time">2026-10-30 10:45:00</strong></div>
+                    <div class="r-row"><span>Account Number:</span><strong id="rec-acc-no">#10010001</strong></div>
+                    <div class="r-row"><span>Account Holder:</span><strong id="rec-holder">Alex Morgan</strong></div>
+                    <div class="r-row"><span>Transaction Type:</span><span class="badge" id="rec-type">DEPOSIT</span></div>
+                    <div class="r-row highlight"><span>Amount:</span><strong class="r-amount" id="rec-amount">+₹500.00</strong></div>
+                    <div class="r-row"><span>Closing Balance:</span><strong id="rec-balance">₹5,920.50</strong></div>
+                    <div class="r-row"><span>Remarks / Note:</span><span id="rec-remarks">Cash Deposit</span></div>
+                    <div class="r-row" id="rec-target-row" style="display:none;"><span>Counterparty Acc:</span><strong id="rec-target">#10010002</strong></div>
+                </div>
+                <div class="receipt-barcode">||| | ||||| || |||| |||||| ||| |||||</div>
+                <div class="receipt-footer">
+                    <small>Thank you for banking with Apex Core. System processed in C++ with SQLite transaction guarantee.</small>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeReceiptModal()">Close</button>
+                <button class="btn btn-primary" onclick="printReceipt()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    <span>Print Receipt</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ACCOUNT DETAIL INSPECTOR -->
+    <div class="modal-backdrop" id="account-detail-modal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3>Account Profile Inspector</h3>
+                <button class="modal-close" onclick="closeAccountModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="account-detail-body">
+                <!-- Injected via JS -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeAccountModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
